@@ -733,7 +733,7 @@ class XmlSaveEditor:
 
     def try_load_save_variants(self, raw_data: bytes):
         attempts = [
-            ("PC/Steam", True, xor_data(raw_data, KEY)),
+            ("PC/Steam/Xbox", True, xor_data(raw_data, KEY)),
             ("Nintendo Switch", False, raw_data),
         ]
 
@@ -773,7 +773,7 @@ class XmlSaveEditor:
 
     def try_load_3ds_save(self, raw_data: bytes):
         template_path = filedialog.askopenfilename(
-            title="Select PC/Switch save template for 3DS conversion",
+            title="Select PC/Switch/Xbox save template for 3DS conversion",
             filetypes=[("Template File(s)", "*.template"), ("All files", "*.*")]
         )
         if not template_path:
@@ -802,7 +802,7 @@ class XmlSaveEditor:
                 self.tree_root, self.use_xor_on_save, self.loaded_format_name = self.try_load_save_variants(raw_data)
                 self.loaded_mode = "xml"
                 self.file_path = path
-                suffix = " [PC/Steam SaveGame]" if self.use_xor_on_save else " [Nintendo Switch SaveGame]"
+                suffix = " [PC/Steam/Xbox SaveGame]" if self.use_xor_on_save else " [Nintendo Switch SaveGame]"
                 self.path_label.config(text=path + suffix)
                 self.reload_tree()
                 messagebox.showinfo(
@@ -981,7 +981,7 @@ class XmlSaveEditor:
             if self.loaded_mode == "3ds":
                 messagebox.showinfo("Saved", f"Saved Nintendo 3DS binary SaveGame back to:\n{self.file_path}")
             else:
-                save_mode = "PC/Steam" if self.use_xor_on_save else "Nintendo Switch"
+                save_mode = "PC/Steam/Xbox" if self.use_xor_on_save else "Nintendo Switch"
                 messagebox.showinfo("Saved", f"Saved {save_mode} SaveGame back to:\n{self.file_path}")
         except Exception as e:
             messagebox.showerror("Save Error", f"Failed to save SaveGame:\n{e}")
@@ -1008,9 +1008,9 @@ class XmlSaveEditor:
                 self.path_label.config(text=path + " [Nintendo 3DS SaveGame]")
                 messagebox.showinfo("Saved", f"Saved Nintendo 3DS Binary SaveGame to:\n{path}")
             else:
-                suffix = " [PC/Steam SaveGame]" if self.use_xor_on_save else " [Nintendo Switch SaveGame]"
+                suffix = " [PC/Steam/Xbox SaveGame]" if self.use_xor_on_save else " [Nintendo Switch SaveGame]"
                 self.path_label.config(text=path + suffix)
-                save_mode = "PC/Steam" if self.use_xor_on_save else "Nintendo Switch"
+                save_mode = "PC/Steam/Xbox" if self.use_xor_on_save else "Nintendo Switch"
                 messagebox.showinfo("Saved", f"Saved {save_mode} SaveGame to:\n{path}")
         except Exception as e:
             messagebox.showerror("Save Error", f"Failed to save SaveGame:\n{e}")
